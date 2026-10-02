@@ -1,4 +1,4 @@
--- Aron Hub // Land Or Die (v23.0 - No Key Edition)
+-- Aselsan Hub // Reign Fall (v23.0 - No Key Edition)
 -- Yapımcı: qmiracxws
 
 local Players = game:GetService("Players")
@@ -13,14 +13,14 @@ local CoreGui = game:GetService("CoreGui")
 -- Eski kalıntıları temizle
 pcall(function()
     for _, v in pairs(CoreGui:GetChildren()) do
-        if v.Name:find("Aron") or v.Name:find("Golden") or v.Name:find("Safe") then
+        if v.Name:find("Aron") or v.Name:find("Aselsan") or v.Name:find("Golden") or v.Name:find("Safe") then
             v:Destroy()
         end
     end
 end)
 
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "GoldenAronHub"
+ScreenGui.Name = "GoldenAselsanHub"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
@@ -100,7 +100,7 @@ local function LoadHub()
     Logo.TextSize = 12
     Logo.Font = Enum.Font.GothamBold
     Logo.TextXAlignment = Enum.TextXAlignment.Left
-    Logo.Text = "ARON HUB // LAND OR DIE (Yapımcı: qmiracxws)"
+    Logo.Text = "ASELSAN HUB // REIGN FALL (Yapımcı: qmiracxws)"
 
     local Close = Instance.new("TextButton", Top)
     Close.Size = UDim2.new(0, 28, 0, 28)
@@ -204,7 +204,7 @@ local function LoadHub()
     local Player = CreateCategory("Player")
     local Misc = CreateCategory("Misc")
 
-    getgenv().AronConfig = {
+    getgenv().AselsanConfig = {
         AmmoVal = 100,
         Rapid = false,
         NoRecoil = false,
@@ -274,13 +274,13 @@ local function LoadHub()
     end
 
     -- İÇERİKLER
-    AddInput(Combat, "Mermi Miktarı", function(v) getgenv().AronConfig.AmmoVal = v end)
+    AddInput(Combat, "Mermi Miktarı", function(v) getgenv().AselsanConfig.AmmoVal = v end)
     
     AddBtn(Combat, "Give Ammo (Mermi Al)", function()
         pcall(function()
             local char = LocalPlayer.Character
             local success = false
-            local amt = tonumber(getgenv().AronConfig.AmmoVal) or 100
+            local amt = tonumber(getgenv().AselsanConfig.AmmoVal) or 100
             if char then
                 for _, t in pairs(char:GetChildren()) do
                     if t:IsA("Tool") then
@@ -298,9 +298,9 @@ local function LoadHub()
     end)
 
     AddTog(Combat, "Rapid Fire", function(st)
-        getgenv().AronConfig.Rapid = st
+        getgenv().AselsanConfig.Rapid = st
         task.spawn(function()
-            while getgenv().AronConfig.Rapid do
+            while getgenv().AselsanConfig.Rapid do
                 pcall(function()
                     local t = LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Tool")
                     if t then
@@ -318,9 +318,9 @@ local function LoadHub()
 
     -- GELİŞMİŞ NO RECOIL
     AddTog(Combat, "No Recoil", function(st)
-        getgenv().AronConfig.NoRecoil = st
+        getgenv().AselsanConfig.NoRecoil = st
         task.spawn(function()
-            while getgenv().AronConfig.NoRecoil do
+            while getgenv().AselsanConfig.NoRecoil do
                 pcall(function()
                     local t = LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Tool")
                     if t then
@@ -345,23 +345,23 @@ local function LoadHub()
 
     -- AKILLİ ESP (Sadece Yaşayanlar)
     AddTog(Visuals, "Zombie ESP", function(st)
-        getgenv().AronConfig.ESP = st
+        getgenv().AselsanConfig.ESP = st
         if not st then
             pcall(function()
                 for _, v in pairs(Workspace:GetDescendants()) do
-                    if v:IsA("Highlight") and v.Name == "AronESP" then v:Destroy() end
+                    if v:IsA("Highlight") and v.Name == "AselsanESP" then v:Destroy() end
                 end
             end)
         else
             task.spawn(function()
-                while getgenv().AronConfig.ESP do
+                while getgenv().AselsanConfig.ESP do
                     pcall(function()
                         for _, obj in pairs(Workspace:GetDescendants()) do
                             if obj:IsA("Model") then
                                 local hum = obj:FindFirstChild("Humanoid")
                                 local root = obj:FindFirstChild("HumanoidRootPart")
                                 local isPlayer = Players:GetPlayerFromCharacter(obj)
-                                local exist = obj:FindFirstChild("AronESP")
+                                local exist = obj:FindFirstChild("AselsanESP")
 
                                 if exist and (not hum or hum.Health <= 0 or not root) then
                                     exist:Destroy()
@@ -370,7 +370,7 @@ local function LoadHub()
                                     if ln:find("zombie") or ln:find("enemy") or ln:find("mob") or ln:find("infected") then
                                         if not exist then
                                             local h = Instance.new("Highlight", obj)
-                                            h.Name = "AronESP"
+                                            h.Name = "AselsanESP"
                                             h.FillColor = Theme.Accent
                                             h.OutlineColor = Color3.fromRGB(255, 255, 255)
                                         end
@@ -387,12 +387,12 @@ local function LoadHub()
 
     -- KESİN ÇÖZÜMLÜ AKILLI AIMBOT
     AddTog(Visuals, "Zombie Aimbot", function(st)
-        getgenv().AronConfig.Aimbot = st
+        getgenv().AselsanConfig.Aimbot = st
         local cnn
         if st then
             cnn = RunService.RenderStepped:Connect(function()
                 pcall(function()
-                    if not getgenv().AronConfig.Aimbot then return end
+                    if not getgenv().AselsanConfig.Aimbot then return end
                     local ch, minDist = nil, math.huge
                     local lRoot = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
                     if not lRoot then return end
@@ -429,7 +429,7 @@ local function LoadHub()
     end)
 
     AddTog(Visuals, "Night Vision", function(st)
-        getgenv().AronConfig.Bright = st
+        getgenv().AselsanConfig.Bright = st
         pcall(function()
             Lighting.Brightness = st and 2 or 1
             Lighting.ClockTime = st and 14 or 0
@@ -438,9 +438,9 @@ local function LoadHub()
     end)
 
     AddTog(Player, "Noclip", function(st)
-        getgenv().AronConfig.NoClip = st
+        getgenv().AselsanConfig.NoClip = st
         task.spawn(function()
-            while getgenv().AronConfig.NoClip do
+            while getgenv().AselsanConfig.NoClip do
                 pcall(function()
                     if LocalPlayer.Character then
                         for _, p in pairs(LocalPlayer.Character:GetDescendants()) do
@@ -454,19 +454,19 @@ local function LoadHub()
     end)
 
     AddTog(Misc, "Anti-Ban", function(st)
-        getgenv().AronConfig.AntiBan = st
+        getgenv().AselsanConfig.AntiBan = st
         Notify(st and "Anti-Ban aktif edildi." or "Anti-Ban kapatıldı.")
     end)
 
     AddTog(Misc, "Anti-Kick", function(st)
-        getgenv().AronConfig.AntiKick = st
+        getgenv().AselsanConfig.AntiKick = st
         pcall(function()
             if st and getrawmetatable and setreadonly then
                 local mt = getrawmetatable(game)
                 setreadonly(mt, false)
                 local old = mt.__namecall
                 mt.__namecall = newcclosure(function(self, ...)
-                    if getnamecallmethod():lower() == "kick" and self == LocalPlayer and getgenv().AronConfig.AntiKick then
+                    if getnamecallmethod():lower() == "kick" and self == LocalPlayer and getgenv().AselsanConfig.AntiKick then
                         return
                     end
                     return old(self, ...)
@@ -487,7 +487,7 @@ local function LoadHub()
         end)
     end)
 
-    Notify("Aron Hub // Land Or Die v23 Hazır!")
+    Notify("Aselsan Hub // Reign Fall v23 Hazır!")
 end
 
 -- Doğrudan başlat
